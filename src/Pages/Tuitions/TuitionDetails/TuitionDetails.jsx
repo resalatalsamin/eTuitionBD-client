@@ -8,18 +8,22 @@ import { SlCalender } from "react-icons/sl";
 import { Link, useLoaderData } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useRole from "../../../Hooks/useRole";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const TuitionDetails = () => {
   const tuition = useLoaderData();
   // console.log(tuition);
   const { _id } = tuition;
-  const { user, isTutor } = useAuth();
+  const { user } = useAuth();
+  const { isTutor } = useRole();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     qualifications: "",
     experience: "",
     expectedSalary: "",
   });
+  const axiosSecure = useAxiosSecure();
 
   const handleApply = () => {
     setIsModalOpen(true);
@@ -57,35 +61,31 @@ const TuitionDetails = () => {
       status: "pending",
     };
 
-    // Console log all details
-    // console.log("Application Details:", applicationData);
-
-    // Send to backend
-    fetch(`http://localhost:3000/myApplies`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(applicationData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log("Response from server:", data);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your application has been submitted successfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        handleCloseModal();
+    // 2. Use axiosSecure.post instead of fetch
+    axiosSecure
+      .post("/myApplies", applicationData)
+      .then((res) => {
+        // Axios stores the response body in 'res.data'
+        if (res.data.insertedId || res.data.acknowledged) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your application has been submitted successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          handleCloseModal();
+        }
       })
       .catch((err) => {
         console.error("Error submitting application:", err);
+
+        // Check if it's a 401 or 403 (handled by your interceptor,
+        // but good to have a fallback message here)
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "Failed to submit application. Please try again.",
+          title: err.response?.data?.message || "Failed to submit application.",
           showConfirmButton: false,
           timer: 1500,
         });

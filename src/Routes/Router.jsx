@@ -20,6 +20,7 @@ import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ModifyUserRoles from "../Pages/Dashboard/AdminDashboard/ModifyUserRoles";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import TuitionApplication from "../Pages/Dashboard/MyTuitions/TuitionApplication/TuitionApplication";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -101,10 +102,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-users",
-        Component: ManageUsers,
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
       },
       {
-        path: "tuition-applications/:{id}",
+        path: "tuition-applications/:id",
         Component: TuitionApplication,
       },
     ],

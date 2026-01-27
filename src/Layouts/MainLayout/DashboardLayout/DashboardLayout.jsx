@@ -1,13 +1,17 @@
 import React from "react";
 import { IoIosAddCircleOutline, IoMdList } from "react-icons/io";
 import { Link, NavLink, Outlet } from "react-router";
-import useAuth from "../../../Hooks/useAuth";
+
 import { FaUser } from "react-icons/fa";
 import useRole from "../../../Hooks/useRole";
 
 const DashboardLayout = () => {
-  const { isStudent, isTutor, isAdmin } = useAuth();
-  const { role } = useRole();
+  const { isTutor, isAdmin, isStudent } = useRole();
+  // const isAdmin = role === "admin";
+  // const isStudent = role === "student";
+  // const isTutor = role === "tutor";
+
+  console.log(isAdmin);
 
   return (
     <div className="drawer lg:drawer-open min-h-screen">
@@ -102,7 +106,7 @@ const DashboardLayout = () => {
               </>
             )}
             {/* Admin Links */}
-            {role === "admin" && (
+            {isAdmin && (
               <>
                 <li>
                   <NavLink to="/dashboard/manage-users">

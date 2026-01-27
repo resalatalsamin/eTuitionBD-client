@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const AddTutorDetails = () => {
-  const { user } = useAuth();
+  const { loading: authLoading, isTutor } = useAuth();
   const AxiosSecure = useAxiosSecure();
   const {
     register,
@@ -14,6 +15,24 @@ const AddTutorDetails = () => {
     // control,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If auth is still checking, do nothing yet
+    if (authLoading) return;
+
+    // If auth finished and user is NOT a student
+    if (!isTutor) {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Only tutors can post tutor details",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      navigate("/");
+    }
+  }, [isTutor, authLoading, navigate]);
 
   const handleTutor = (data) => {
     AxiosSecure.post("/tutor-details", data).then((res) => {

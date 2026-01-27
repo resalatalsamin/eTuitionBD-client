@@ -275,15 +275,34 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoEyeOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const MyTuitions = () => {
   const navigate = useNavigate();
   const updateModalRef = useRef(null);
-  const { user } = useAuth();
+  const { user, authToken, isStudent, loading: authLoading } = useAuth();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
   const [currentListing, setCurrentListing] = useState(null);
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    // If auth is still checking, do nothing yet
+    if (authLoading) return;
+
+    // If auth finished and user is NOT a student
+    if (!isStudent) {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Only students can manage tuition listings!",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      navigate("/");
+    }
+  }, [isStudent, authLoading, navigate]);
 
   // modal
   const handleUpdateModalOpen = (listing) => {
@@ -336,14 +355,21 @@ const MyTuitions = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-tuitions?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setListings(data);
+    if (!user?.email || !authToken) return;
+    // We use axiosSecure instead of fetch
+    axiosSecure
+      .get(`/my-tuitions?email=${user.email}`)
+      .then((res) => {
+        // Axios puts the data inside a 'data' property
+        setListings(res.data);
         setLoading(false);
         setIsDeleted(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching tuitions:", err);
+        setLoading(false);
       });
-  }, [isDeleted, user.email]);
+  }, [isDeleted, user.email, axiosSecure, authToken]);
 
   if (loading) {
     return (
@@ -391,7 +417,7 @@ const MyTuitions = () => {
 
   // View applications
   const handleViewApplications = (id) => {
-    navigate(`/tuition-applications/${id}`);
+    navigate(`/dashboard/tuition-applications/${id}`);
   };
 
   return (

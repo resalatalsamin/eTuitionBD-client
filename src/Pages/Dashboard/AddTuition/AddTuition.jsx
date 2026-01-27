@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AddTuition = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading, isStudent } = useAuth();
   const AxiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,6 +17,23 @@ const AddTuition = () => {
     // control,
     // formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    // If auth is still checking, do nothing yet
+    if (authLoading) return;
+
+    // If auth finished and user is NOT a student
+    if (!isStudent) {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Only students can manage tuition listings!",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      navigate("/");
+    }
+  }, [isStudent, authLoading, navigate]);
 
   const handleTuition = (data) => {
     AxiosSecure.post("/tuitions", data).then((res) => {

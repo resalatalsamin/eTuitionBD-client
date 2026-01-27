@@ -27,6 +27,8 @@ const AuthProvider = ({ children }) => {
     return role;
   });
 
+  const [authToken, setAuthToken] = useState(null);
+
   // Registration
   const registerUser = (email, password) => {
     setLoading(true);
@@ -52,6 +54,7 @@ const AuthProvider = ({ children }) => {
     await signOut(auth);
     localStorage.removeItem("user");
     localStorage.removeItem("role");
+    localStorage.removeItem("access-token");
     setUser(null);
     setLoading(false);
   };
@@ -72,8 +75,10 @@ const AuthProvider = ({ children }) => {
 
   // 🔐 Firebase auth observer (source of truth)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        const token = await currentUser.getIdToken();
+        setAuthToken(token);
         const userData = {
           uid: currentUser.uid,
           email: currentUser.email,
@@ -83,9 +88,11 @@ const AuthProvider = ({ children }) => {
 
         setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("access-token", token); // Store the token here
       } else {
         setUser(null);
         localStorage.removeItem("user");
+        localStorage.removeItem("access-token"); // Clear token on logout
       }
 
       setLoading(false);
@@ -107,6 +114,7 @@ const AuthProvider = ({ children }) => {
     isAdmin,
     isStudent,
     isTutor,
+    authToken,
   };
 
   return (

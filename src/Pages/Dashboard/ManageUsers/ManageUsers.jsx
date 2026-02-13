@@ -5,6 +5,8 @@ import { FaUserShield } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import Swal from "sweetalert2";
 
+import {} from "react-router";
+
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { refetch, data: users = [] } = useQuery({
@@ -31,6 +33,27 @@ const ManageUsers = () => {
       }
     });
   };
+
+  // const { isAdmin, roleLoading } = useRole();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // If auth is still checking, do nothing yet
+  //   if (roleLoading) return;
+
+  //   // If auth finished and user is NOT a student
+  //   if (!isAdmin) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Access Denied",
+  //       text: "Only students can manage tuition listings!",
+  //       timer: 2000,
+  //       showConfirmButton: false,
+  //     });
+  //     navigate("/");
+  //   }
+  // }, [isAdmin, roleLoading, navigate]);
+
   const handleRemoveAdmin = (user) => {
     const roleInfo = { role: "user" };
     axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {

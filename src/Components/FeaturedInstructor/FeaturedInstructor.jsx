@@ -21,6 +21,14 @@ const FeaturedInstructor = () => {
       });
   }, []);
 
+  if (loading) {
+    return (
+      <div>
+        <span className="loading loading-infinity loading-lg flex flex-col items-center"></span>
+      </div>
+    );
+  }
+
   const handleTutorConfirm = (id) => {
     if (user) {
       Navigate(`/tuition-details/${id}`);
@@ -97,7 +105,7 @@ const FeaturedInstructor = () => {
                 </div>
                 <div className="flex justify-between items-center font-medium text-[#757575]">
                   <p>Salary:</p>
-                  <p>{tutor.salary}</p>
+                  <p>{tutor.salary} USD</p>
                 </div>
               </div>
             </div>

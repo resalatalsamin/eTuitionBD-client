@@ -24,6 +24,14 @@ const Tuitions = () => {
       });
   }, []);
 
+  if (loading) {
+    return (
+      <div>
+        <span className="loading loading-infinity loading-lg"></span>
+      </div>
+    );
+  }
+
   const handleTuitionDetails = (id) => {
     if (user) {
       Navigate(`/tuition-details/${id}`);
@@ -34,13 +42,16 @@ const Tuitions = () => {
 
   return (
     <div>
-      <div className="w-11/12 mx-auto mb-30 mt-20">
-        <div>
-          <h2 className="text-[#2d3748] text-center font-primary font-bold text-3xl md:text-4xl pb-10">
-            All Our <span className="text-accent">Tuition Listings</span>
+      <div className="w-11/12 mx-auto mb-30 ">
+        <div className="mt-10 text-center space-y-3">
+          <h2 className="font-bold md:text-5xl text-4xl font-primary text-[#2d3748]">
+            Our <span className="text-accent">Listed Tuitions</span>
           </h2>
+          <h3 className="font-secondary font-medium text-[#757575] text-3xl">
+            Find All The Tuitions in One Place
+          </h3>
         </div>
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-5 ">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-5 mt-10">
           {/* 1st card */}
           {tuitions.map((tuition) => (
             <div key={tuition._id} className="rounded-lg p-7 bg-white">
@@ -48,7 +59,7 @@ const Tuitions = () => {
                 <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
                   Class {tuition.class}
                 </h4>
-                <p className="text-[#757575] text-xl">Job Id: </p>
+                {/* <p className="text-[#757575] text-xl">Job Id: </p> */}
               </div>
               <div className="mb-5">
                 <p className="flex items-center gap-2 text-xl font-medium text-[#2d3748]">
@@ -118,7 +129,7 @@ const Tuitions = () => {
                         Salary
                       </h4>
                       <p className="text-md text-[#757575] font-primary ">
-                        {tuition.salary} Taka
+                        {tuition.salary} USD
                       </p>
                     </div>
                   </div>

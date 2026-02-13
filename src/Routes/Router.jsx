@@ -21,6 +21,10 @@ import ModifyUserRoles from "../Pages/Dashboard/AdminDashboard/ModifyUserRoles";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import TuitionApplication from "../Pages/Dashboard/MyTuitions/TuitionApplication/TuitionApplication";
 import AdminRoute from "./AdminRoute";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Dashboard/Payment/PaymentCancel";
+import PageNotFound from "../Components/Shared/ErrorPage/PageNotFound";
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +116,22 @@ export const router = createBrowserRouter([
         path: "tuition-applications/:id",
         Component: TuitionApplication,
       },
+      {
+        path: "payment/:applicationId",
+        Component: Payment,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCancel,
+      },
     ],
+  },
+  {
+    path: "*",
+    Component: PageNotFound,
   },
 ]);

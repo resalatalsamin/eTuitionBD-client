@@ -11,7 +11,12 @@ const DashboardLayout = () => {
   // const isStudent = role === "student";
   // const isTutor = role === "tutor";
 
-  console.log(isAdmin);
+  const getDashboardTitle = () => {
+    if (isAdmin) return "Admin Dashboard";
+    if (isTutor) return "Tutor Dashboard";
+    if (isStudent) return "Student Dashboard";
+    return "Dashboard";
+  };
 
   return (
     <div className="drawer lg:drawer-open min-h-screen">
@@ -41,7 +46,9 @@ const DashboardLayout = () => {
             </svg>
           </label>
 
-          <div className="px-4 text-lg font-semibold">eTuitionBD Dashboard</div>
+          <div className="px-4 text-lg font-semibold">
+            {getDashboardTitle()}
+          </div>
         </nav>
 
         {/* Page Content */}
@@ -88,7 +95,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink to="/dashboard/add-tuition">
                     <IoIosAddCircleOutline className="text-lg" />
-                    Add Tuition
+                    Post New Tuition
                   </NavLink>
                 </li>
               </>

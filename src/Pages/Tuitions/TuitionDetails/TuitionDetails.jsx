@@ -63,7 +63,7 @@ const TuitionDetails = () => {
 
     // 2. Use axiosSecure.post instead of fetch
     axiosSecure
-      .post("/myApplies", applicationData)
+      .post("/application", applicationData)
       .then((res) => {
         // Axios stores the response body in 'res.data'
         if (res.data.insertedId || res.data.acknowledged) {
@@ -164,7 +164,7 @@ const TuitionDetails = () => {
                   Salary
                 </h5>
                 <p className="text-md text-[#757575] font-primary">
-                  {tuition.salary}
+                  {tuition.salary} USD
                 </p>
               </div>
             </div>

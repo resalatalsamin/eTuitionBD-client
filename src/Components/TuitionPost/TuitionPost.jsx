@@ -21,6 +21,15 @@ const TuitionPost = () => {
         setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <span className="loading loading-infinity loading-lg"></span>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -44,7 +53,7 @@ const TuitionPost = () => {
               <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
                 Class {tuition.class}
               </h4>
-              <p className="text-[#757575] text-xl">Job Id: </p>
+              {/* <p className="text-[#757575] text-xl">Job Id: </p> */}
             </div>
             <div className="mb-5">
               <p className="flex items-center gap-2 text-xl font-medium text-[#2d3748]">
@@ -114,7 +123,7 @@ const TuitionPost = () => {
                       Salary
                     </h4>
                     <p className="text-md text-[#757575] font-primary ">
-                      {tuition.salary} Taka
+                      {tuition.salary} USD
                     </p>
                   </div>
                 </div>

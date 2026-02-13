@@ -1,273 +1,3 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import useAuth from "../../../Hooks/useAuth";
-// import { FaRegEdit } from "react-icons/fa";
-// import { MdDeleteOutline } from "react-icons/md";
-// import Swal from "sweetalert2";
-
-// const MyTuitions = () => {
-//   const updateModalRef = useRef(null);
-//   const { user } = useAuth();
-//   // console.log(user);
-//   const [listings, setListings] = useState([]);
-
-//   const [loading, setLoading] = useState(true);
-//   const [isDeleted, setIsDeleted] = useState(false);
-
-//   // modal
-//   const handleUpdateModalOpen = () => {
-//     updateModalRef.current.showModal();
-//   };
-
-//   const handleUpdate = (e, id) => {
-//     e.preventDefault();
-
-//     const updatedForm = {
-//       salary: e.target.salary.value,
-//       subject: e.target.subject.value,
-//       time: e.target.time.value,
-//       days: e.target.days.value,
-//       location: e.target.location.value,
-//       class: e.target.class.value,
-//     };
-
-//     // sending data to server
-//     fetch(`http://localhost:3000/update-tuition/${id}`, {
-//       method: "PATCH",
-//       headers: {
-//         "content-type": "application/json",
-//       },
-//       body: JSON.stringify(updatedForm),
-//     })
-//       .then((res) => res.json())
-//       .then(() => {});
-//   };
-
-//   useEffect(() => {
-//     fetch(`http://localhost:3000/my-tuitions?email=${user.email}`)
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setListings(data);
-//         setLoading(false);
-//         setIsDeleted(false);
-//       });
-//   }, [isDeleted, user.email]);
-
-//   if (loading) {
-//     <span className="loading loading-ring loading-xl"></span>;
-//   }
-
-//   // delete
-//   const handleDelete = (id) => {
-//     setIsDeleted(false);
-//     // console.log(id);
-//     Swal.fire({
-//       title: "Are you sure?",
-//       text: "You won't be able to revert this!",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#3085d6",
-//       cancelButtonColor: "#d33",
-//       confirmButtonText: "Yes, delete it!",
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         fetch(`http://localhost:3000/tuition/${id}`, {
-//           method: "DELETE",
-//           headers: {
-//             "content-type": "application/json",
-//           },
-//         })
-//           .then((res) => res.json())
-//           .then((data) => {
-//             console.log(data);
-//             setIsDeleted(true);
-//             Swal.fire({
-//               title: "Deleted!",
-//               text: "Your listing has been deleted.",
-//               icon: "success",
-//             });
-//             // console.log(data);
-//           })
-
-//           .catch((err) => {
-//             console.log(err);
-//           });
-//       }
-//     });
-//   };
-
-//   return (
-//     <div>
-//       <div className="w-11/12 mx-auto mb-30 mt-20">
-//         <div>
-//           <h2 className="text-[#2d3748] text-center font-primary font-bold text-3xl md:text-4xl pb-10">
-//             My <span className="text-accent">Tuition Listings</span>
-//           </h2>
-//         </div>
-//         <div className="max-w-3xl w-full rounded-md overflow-hidden border border-borderColor mt-6 mb-15 font-secondary">
-//           <table className="w-full border-collapse text-left text-sm text-[#253241]">
-//             <thead className="text-[#253241] ">
-//               <tr>
-//                 <th className="p-3 font-medium">Subject</th>
-//                 <th className="p-3 font-medium">Time</th>
-//                 <th className="p-3 font-medium">Days</th>
-//                 <th className="p-3 font-medium max-md:hidden">Salary</th>
-//                 <th className="p-3 font-medium">Actions</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {listings.map((listing, index) => (
-//                 <tr key={index} className="border-t border-borderColor">
-//                   <td className="p-3 flex items-center gap-3">
-//                     {/* <img
-//                       className="h-12 w-12 aspect-square rounded-md object-cover"
-//                       src={listing.imageUrl}
-//                       alt=""
-//                     /> */}
-//                     <div className="max-md:hidden">
-//                       <p className="font-medium">{listing.subject}</p>
-//                     </div>
-//                   </td>
-//                   <td className="p-3 max-md:hidden">{listing.time}</td>
-//                   <td className="p-3 ">{listing.days}</td>
-//                   <td className="p-3 ">{listing.salary}</td>
-//                   <td className="flex items-center p-3">
-//                     <div>
-//                       {" "}
-//                       <MdDeleteOutline
-//                         onClick={() => handleDelete(listing._id)}
-//                         s
-//                         alt="Delete Icon"
-//                         className="cursor-pointer w-10"
-//                       />
-//                     </div>
-//                     <div>
-//                       <FaRegEdit
-//                         onClick={() => handleUpdateModalOpen(listing._id)}
-//                         alt="Delete Icon"
-//                         className="cursor-pointer w-4"
-//                       />
-
-//                       <dialog
-//                         ref={updateModalRef}
-//                         className="modal modal-bottom sm:modal-middle"
-//                       >
-//                         <div className="modal-box">
-//                           <h3 className="font-bold text-lg">
-//                             Update Your Tuition Details!
-//                           </h3>
-//                           <p className="py-4">Choose the best for you.</p>
-//                           {/* form */}
-//                           <form
-//                             onSubmit={(e) => handleUpdate(e, listing._id)}
-//                             className="flex flex-col gap-5  text-sm mt-6 max-w-xl font-secondary text-[#253241]"
-//                           >
-//                             {/* Car Name and category */}
-//                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                               <div className="flex flex-col w-full">
-//                                 <label>Subject</label>
-//                                 <select
-//                                   defaultValue={listing?.subject}
-//                                   className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                                   name="subject"
-//                                 >
-//                                   <option value="">Select a subject</option>
-//                                   <option value="maths">Maths</option>
-//                                   <option value="Higher Math">
-//                                     Higher Math
-//                                   </option>
-//                                   <option value="Chemistry">Chemistry</option>
-//                                   <option value="Physics">Physics</option>
-//                                 </select>
-//                               </div>
-//                               <div className="flex flex-col w-full">
-//                                 <label>Days</label>
-//                                 <select
-//                                   defaultValue={listing?.days}
-//                                   className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                                   name="days"
-//                                 >
-//                                   <option value="">Select Days</option>
-//                                   <option value="2">2</option>
-//                                   <option value="3">3</option>
-//                                   <option value="4">4</option>
-//                                   <option value="5">5</option>
-//                                 </select>
-//                               </div>
-//                             </div>
-//                             {/* Salary, Class*/}
-//                             <div className="flex flex-col w-full">
-//                               <label>Class</label>
-//                               <select
-//                                 defaultValue={listing?.class}
-//                                 className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                                 name="class"
-//                               >
-//                                 <option value="">Select a class</option>
-//                                 <option value="9">9</option>
-//                                 <option value="10">10</option>
-//                                 <option value="11">11</option>
-//                                 <option value="12">12</option>
-//                               </select>
-//                             </div>
-//                             {/* location, Provider name, Provider email, Description */}
-//                             <div className="flex flex-col w-full">
-//                               <label>Location</label>
-//                               <input
-//                                 type="text"
-//                                 name="location"
-//                                 defaultValue={listing?.location}
-//                                 placeholder="Your Location"
-//                                 className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                               />
-//                             </div>
-//                             <div className="flex flex-col w-full">
-//                               <label>Time</label>
-//                               <input
-//                                 type="number"
-//                                 name="time"
-//                                 defaultValue={listing?.time}
-//                                 placeholder="Your preferred time"
-//                                 className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                               />
-//                             </div>
-
-//                             <div className="flex flex-col w-full">
-//                               <label>Salary</label>
-//                               <input
-//                                 type="number"
-//                                 name="salary"
-//                                 defaultValue={listing?.salary}
-//                                 placeholder="Your preferred salary"
-//                                 className="px-3 py-2 mt-1 border borderColor rounded-md outline-none"
-//                               />
-//                             </div>
-//                             <button className="btn bg-accent text-white font-primary font-bold mt-4 hover:bg-[#222222] hover:border-[#222222] w-full">
-//                               Update Tuition
-//                             </button>
-//                           </form>
-
-//                           <div className="modal-action">
-//                             <form method="dialog">
-//                               {/* if there is a button in form, it will close the modal */}
-//                               <button className="btn">Close</button>
-//                             </form>
-//                           </div>
-//                         </div>
-//                       </dialog>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MyTuitions;
-
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
@@ -455,33 +185,35 @@ const MyTuitions = () => {
                   <td className="p-3">{listing.days}/week</td>
                   <td className="p-3 max-md:hidden">{listing.salary} BDT</td>
                   <td className="p-3">
-                    <div className="flex items-center gap-2">
+                    <div className="grid md:grid-cols-2 items-center gap-5 ">
                       {/* View Applications Button */}
                       <button
                         onClick={() => handleViewApplications(listing._id)}
                         title="View Applications"
-                        className="p-2 hover:bg-blue-50 rounded-md transition-colors"
+                        className="btn bg-accent text-white font-primary font-bold mt-4 hover:bg-[#222222] hover:border-[#222222]"
                       >
-                        <IoEyeOutline className="text-blue-600 text-xl" />
+                        Applied Tutors
                       </button>
 
-                      {/* Edit Button */}
-                      <button
-                        onClick={() => handleUpdateModalOpen(listing)}
-                        title="Edit"
-                        className="p-2 hover:bg-green-50 rounded-md transition-colors"
-                      >
-                        <FaRegEdit className="text-green-600 text-lg" />
-                      </button>
+                      <div>
+                        {/* Edit Button */}
+                        <button
+                          onClick={() => handleUpdateModalOpen(listing)}
+                          title="Edit"
+                          className="p-2 hover:bg-green-50 rounded-md transition-colors"
+                        >
+                          <FaRegEdit className="text-green-600 text-lg" />
+                        </button>
 
-                      {/* Delete Button */}
-                      <button
-                        onClick={() => handleDelete(listing._id)}
-                        title="Delete"
-                        className="p-2 hover:bg-red-50 rounded-md transition-colors"
-                      >
-                        <MdDeleteOutline className="text-red-600 text-xl" />
-                      </button>
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => handleDelete(listing._id)}
+                          title="Delete"
+                          className="p-2 hover:bg-red-50 rounded-md transition-colors"
+                        >
+                          <MdDeleteOutline className="text-red-600 text-xl" />
+                        </button>
+                      </div>
                     </div>
                   </td>
                 </tr>

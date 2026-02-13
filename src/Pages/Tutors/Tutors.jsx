@@ -17,6 +17,14 @@ const Tutors = () => {
       });
   }, []);
 
+  if (loading) {
+    return (
+      <div>
+        <span className="loading loading-infinity loading-lg"></span>
+      </div>
+    );
+  }
+
   const handleTutorConfirm = (id) => {
     if (user) {
       Navigate(`/tuition-details/${id}`);
@@ -77,7 +85,7 @@ const Tutors = () => {
                 </div>
                 <div className="flex justify-between items-center font-medium text-[#757575]">
                   <p>Salary:</p>
-                  <p>{tutor.salary}</p>
+                  <p>{tutor.salary} USD</p>
                 </div>
               </div>
             </div>

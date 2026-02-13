@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 const TuitionApplication = () => {
   const { id: tuitionID } = useParams();
@@ -49,6 +49,35 @@ const TuitionApplication = () => {
       queryClient.invalidateQueries(["applications", tuitionID]);
     },
   });
+
+  // Mutation for rejecting (deleting) application
+  const rejectMutation = useMutation({
+    mutationFn: async (applicationId) => {
+      const response = await fetch(
+        `http://localhost:3000/application/${applicationId}/reject`,
+        {
+          method: "DELETE",
+        },
+      );
+      if (!response.ok) {
+        throw new Error("Failed to reject application");
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["applications", tuitionID]);
+    },
+  });
+
+  const handleReject = (applicationId) => {
+    if (
+      window.confirm(
+        "Are you sure you want to reject this application? This will permanently delete it.",
+      )
+    ) {
+      rejectMutation.mutate(applicationId);
+    }
+  };
 
   const handleStatusUpdate = (applicationId, status) => {
     mutation.mutate({ applicationId, status });
@@ -129,40 +158,43 @@ const TuitionApplication = () => {
               key={app._id}
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100"
             >
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+              <div className="bg-gradient-to-r from-green-50 to-amber-50 p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl">
                       {app.applicantName.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">
+                      <h3 className="text-xl font-bold text-">
                         {app.applicantName}
                       </h3>
-                      <p className="text-indigo-100 text-sm flex items-center gap-1 mt-1">
+                      <p className="text-gray-800 text-sm flex items-center gap-1 mt-1">
                         {app.studentEmail}
                       </p>
                     </div>
                   </div>
-                  {app.status === "pending" ? (
+                  {app.status === "paid" ? (
+                    <span className="text-green-400 font-bold text-lg text-center">
+                      Accepted
+                    </span>
+                  ) : (
                     <div className="flex gap-2">
-                      <button
+                      <Link
+                        to={`/dashboard/payment/${app._id}`}
                         onClick={() => handleStatusUpdate(app._id, "approved")}
                         disabled={mutation.isPending}
-                        className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="btn hover:border-gray-600 text-accent font-bold transition-colors disabled:opacity-50border-2 border-accent disabled:cursor-not-allowed"
                       >
                         Accept
-                      </button>
+                      </Link>
                       <button
-                        onClick={() => handleStatusUpdate(app._id, "rejected")}
-                        disabled={mutation.isPending}
-                        className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => handleReject(app._id)}
+                        disabled={rejectMutation.isPending}
+                        className="btn border-2 border-red-500 hover:border-gray-600 text-red-600 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Reject
+                        {rejectMutation.isPending ? "Rejecting..." : "Reject"}
                       </button>
                     </div>
-                  ) : (
-                    getStatusBadge(app.status)
                   )}
                 </div>
               </div>

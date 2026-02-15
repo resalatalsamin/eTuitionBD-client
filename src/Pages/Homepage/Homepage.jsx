@@ -11,8 +11,8 @@ const Homepage = () => {
       <Banner></Banner>
       <WhyChooseUs></WhyChooseUs>
       <TuitionPost></TuitionPost>
-      <ConnectWithUs></ConnectWithUs>
       <FeaturedInstructor></FeaturedInstructor>
+      <ConnectWithUs></ConnectWithUs>
     </div>
   );
 };

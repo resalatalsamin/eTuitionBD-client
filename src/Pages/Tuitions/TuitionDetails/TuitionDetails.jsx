@@ -18,6 +18,7 @@ const TuitionDetails = () => {
   const { user } = useAuth();
   const { isTutor } = useRole();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     qualifications: "",
     experience: "",

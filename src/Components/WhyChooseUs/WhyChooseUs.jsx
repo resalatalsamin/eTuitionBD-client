@@ -3,13 +3,13 @@ import React from "react";
 const WhyChooseUs = () => {
   return (
     <div>
-      <div className="w-full bg-base-200 mb-30 shadow-2xl">
+      <div className="w-full bg-base-200 mb-30 shadow">
         <div>
-          <h2 className="text-[#2d3748] text-center font-primary font-bold text-3xl md:text-4xl py-10">
+          <h2 className="text-[#2d3748] text-center font-primary font-bold text-3xl md:text-4xl pt-20">
             Why Choose <span className="text-accent">Us</span>
           </h2>
         </div>
-        <div className="py-10 md:max-w-10/12 mx-auto text-white ">
+        <div className="pt-10 pb-20 md:max-w-10/12 mx-auto text-white ">
           <div className="">
             <div className="  md:grid md:grid-cols-4">
               <div className="space-y-2 text-center p-4 flex flex-col items-center md:w-[300px] h-fit md:border-r  border-gray-500">

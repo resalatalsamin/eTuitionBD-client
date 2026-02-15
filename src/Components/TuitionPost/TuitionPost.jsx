@@ -24,8 +24,8 @@ const TuitionPost = () => {
 
   if (loading) {
     return (
-      <div>
-        <span className="loading loading-infinity loading-lg"></span>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <span className="loading loading-spinner loading-lg text-accent"></span>
       </div>
     );
   }
@@ -41,21 +41,21 @@ const TuitionPost = () => {
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="grid md:grid-cols-2 grid-cols-1 gap-5 "
+        className="grid md:grid-cols-2 grid-cols-1 gap-5"
       >
         {/* 1st card */}
         {tuitions.map((tuition) => (
           <div
             key={tuition._id}
-            className="rounded-lg p-7 bg-white transition-transform duration-500 group-hover:scale-105"
+            className="rounded-lg p-7 bg-white transition-transform duration-500 group-hover:scale-105 shadow"
           >
             <div className="flex items-center justify-between mb-8">
               <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
                 Class {tuition.class}
               </h4>
-              <p className="text-[#757575] text-xl">
+              {/* <p className="text-[#757575] text-xl">
                 Posted At: {tuition.createdAt}
-              </p>
+              </p> */}
             </div>
             <div className="mb-5">
               <p className="flex items-center gap-2 text-xl font-medium text-[#2d3748]">

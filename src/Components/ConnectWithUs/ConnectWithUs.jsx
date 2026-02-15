@@ -6,9 +6,9 @@ import imgFour from "../../assets/flowbite--badge-check-outline.svg";
 
 const ConnectWithUs = () => {
   return (
-    <div className="mb-30  bg-base-200 shadow-2xl">
-      <div className="pb-10 w-11/12 mx-auto">
-        <div className="text-center py-10">
+    <div className="mb-30  bg-base-200 shadow">
+      <div className="py-20 w-11/12 mx-auto">
+        <div className="text-center pb-10">
           <h1 className="font-bold md:text-4xl text-3xl text-[#2d3748] font-primary ">
             The Ways <span className="text-accent">Students</span> Can Connect
             with Us.

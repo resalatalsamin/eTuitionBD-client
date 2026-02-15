@@ -19,8 +19,8 @@ const Tutors = () => {
 
   if (loading) {
     return (
-      <div>
-        <span className="loading loading-infinity loading-lg"></span>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <span className="loading loading-spinner loading-lg text-accent"></span>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaUserShield } from "react-icons/fa";
@@ -15,6 +15,16 @@ const ManageUsers = () => {
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`);
       return res.data;
+    },
+  });
+
+  // Mutation for deleting user
+  const deleteUserMutation = useMutation({
+    mutationFn: async (userId) => {
+      return await axiosSecure.delete(`/users/${userId}`);
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries(["users"]);
     },
   });
 
@@ -46,6 +56,40 @@ const ManageUsers = () => {
           title: `${user.displayName} removed from Admin`,
           showConfirmButton: false,
           timer: 2000,
+        });
+      }
+    });
+  };
+
+  const handleDeleteUser = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do you want to delete ${user.displayName || user.email}? This action cannot be undone!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete user!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserMutation.mutate(user._id, {
+          onSuccess: () => {
+            Swal.fire({
+              title: "Deleted!",
+              text: `${user.displayName || user.email} has been deleted.`,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          },
+          onError: (error) => {
+            Swal.fire({
+              title: "Error!",
+              text: error.response?.data?.message || "Failed to delete user",
+              icon: "error",
+            });
+          },
         });
       }
     });
@@ -110,9 +154,13 @@ const ManageUsers = () => {
                     </button>
                   )}
                 </td>
-                <td className="">
+                <button
+                  className="btn mt-4"
+                  onClick={() => handleDeleteUser(user)}
+                  disabled={deleteUserMutation.isPending}
+                >
                   <IoIosRemoveCircle className="text-lg" />
-                </td>
+                </button>
               </tr>
             ))}
           </tbody>

@@ -26,8 +26,8 @@ const Tuitions = () => {
 
   if (loading) {
     return (
-      <div>
-        <span className="loading loading-infinity loading-lg"></span>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <span className="loading loading-spinner loading-lg text-accent"></span>
       </div>
     );
   }
@@ -59,9 +59,9 @@ const Tuitions = () => {
                 <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
                   Class {tuition.class}
                 </h4>
-                <p className="text-[#757575] text-xl">
+                {/* <p className="text-[#757575] text-xl">
                   Posted At: {tuition.createdAt}
-                </p>
+                </p> */}
               </div>
               <div className="mb-5">
                 <p className="flex items-center gap-2 text-xl font-medium text-[#2d3748]">

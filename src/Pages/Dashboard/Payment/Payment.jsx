@@ -19,12 +19,14 @@ const Payment = () => {
     const paymentInfo = {
       cost: booking.expectedSalary,
       tuitionId: booking.tuitionId,
+      bookingId: booking._id,
       studentEmail: booking.studentEmail,
     };
     const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
     console.log(res.data);
     window.location.href = res.data.url;
   };
+  console.log("booking:", booking);
 
   if (isLoading) {
     return (

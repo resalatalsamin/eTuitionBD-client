@@ -2,8 +2,11 @@ import React from "react";
 import { IoIosAddCircleOutline, IoMdList } from "react-icons/io";
 import { Link, NavLink, Outlet } from "react-router";
 
-import { FaUser } from "react-icons/fa";
+import { FaCreditCard, FaUser } from "react-icons/fa";
 import useRole from "../../../Hooks/useRole";
+import { MdManageSearch } from "react-icons/md";
+import { BiSolidAnalyse } from "react-icons/bi";
+import { IoSettingsSharp } from "react-icons/io5";
 
 const DashboardLayout = () => {
   const { isTutor, isAdmin, isStudent } = useRole();
@@ -86,16 +89,44 @@ const DashboardLayout = () => {
             {isStudent && (
               <>
                 <li>
-                  <NavLink to="/dashboard/my-tuitions">
-                    <IoMdList className="text-lg" />
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Tuitions"
+                    to="/dashboard/my-tuitions"
+                  >
+                    <IoMdList className="text-lg is-drawer-close:hidden" />
                     My Tuitions
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="/dashboard/add-tuition">
-                    <IoIosAddCircleOutline className="text-lg" />
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Post New Tuition"
+                    to="/dashboard/add-tuition"
+                  >
+                    <IoIosAddCircleOutline className="text-lg is-drawer-close:hidden" />
                     Post New Tuition
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Payment History"
+                    to="/dashboard/payment-history"
+                  >
+                    <FaCreditCard className="text-lg is-drawer-close:hidden" />
+                    Payment History
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Profile Settings"
+                    to="/dashboard/profile-settings"
+                  >
+                    <IoSettingsSharp className="text-lg is-drawer-close:hidden" />
+                    Profile Settings
                   </NavLink>
                 </li>
               </>
@@ -105,8 +136,12 @@ const DashboardLayout = () => {
             {isTutor && (
               <>
                 <li>
-                  <NavLink to="/dashboard/add-tutor-details">
-                    <IoIosAddCircleOutline className="text-lg" />
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Tutor Details"
+                    to="/dashboard/add-tutor-details"
+                  >
+                    <IoIosAddCircleOutline className="text-lg is-drawer-close:hidden" />
                     Add Tutor Details
                   </NavLink>
                 </li>
@@ -116,9 +151,33 @@ const DashboardLayout = () => {
             {isAdmin && (
               <>
                 <li>
-                  <NavLink to="/dashboard/manage-users">
-                    <FaUser className="text-lg" />
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Users"
+                    to="/dashboard/manage-users"
+                  >
+                    <FaUser className="text-lg is-drawer-close:hidden" />
                     Manage Users
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Tuitions"
+                    to="/dashboard/manage-tuitions"
+                  >
+                    <MdManageSearch className="text-lg is-drawer-close:hidden" />
+                    Manage Tuitions
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Reports"
+                    to="/dashboard/reports"
+                  >
+                    <BiSolidAnalyse className="text-lg is-drawer-close:hidden" />
+                    Reports & Analytics
                   </NavLink>
                 </li>
               </>

@@ -6,6 +6,7 @@ import { ImUserMinus } from "react-icons/im";
 import Swal from "sweetalert2";
 
 import {} from "react-router";
+import { IoIosRemoveCircle } from "react-icons/io";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -19,7 +20,7 @@ const ManageUsers = () => {
 
   const handleMakeAdmin = (user) => {
     const roleInfo = { role: "admin" };
-    axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
+    axiosSecure.patch(`/users/${user._id}`, roleInfo).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount) {
         refetch();
@@ -34,30 +35,10 @@ const ManageUsers = () => {
     });
   };
 
-  // const { isAdmin, roleLoading } = useRole();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // If auth is still checking, do nothing yet
-  //   if (roleLoading) return;
-
-  //   // If auth finished and user is NOT a student
-  //   if (!isAdmin) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Access Denied",
-  //       text: "Only students can manage tuition listings!",
-  //       timer: 2000,
-  //       showConfirmButton: false,
-  //     });
-  //     navigate("/");
-  //   }
-  // }, [isAdmin, roleLoading, navigate]);
-
   const handleRemoveAdmin = (user) => {
     const roleInfo = { role: "user" };
-    axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
-      if (res.data.modifiedCont) {
+    axiosSecure.patch(`/users/${user._id}`, roleInfo).then((res) => {
+      if (res.data.modifiedCount) {
         refetch();
         Swal.fire({
           position: "top-end",
@@ -72,6 +53,10 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <h3 className="text-gray-600 text-center mb-10 text-3xl">
+        Manage All Users: {users.length}
+      </h3>
+
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -83,7 +68,7 @@ const ManageUsers = () => {
               <th>Email</th>
               <th>Role</th>
               <th>Admin Action</th>
-              <th>Other Actions</th>
+              <th>Remove User</th>
             </tr>
           </thead>
           <tbody>
@@ -125,11 +110,9 @@ const ManageUsers = () => {
                     </button>
                   )}
                 </td>
-                <td>Other</td>
-
-                <th>
-                  <button className="btn btn-ghost btn-xs">details</button>
-                </th>
+                <td className="">
+                  <IoIosRemoveCircle className="text-lg" />
+                </td>
               </tr>
             ))}
           </tbody>

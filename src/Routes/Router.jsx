@@ -25,6 +25,10 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Dashboard/Payment/PaymentCancel";
 import PageNotFound from "../Components/Shared/ErrorPage/PageNotFound";
+import ManageTuitions from "../Pages/Dashboard/ManageTuitions/ManageTuitions";
+import ReportsAnalytics from "../Pages/Dashboard/ReportsAnalytics/ReportsAnalytics";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
+import ProfileSettings from "../Pages/Dashboard/StudentDashboard/ProfileSettings/ProfileSettings";
 
 export const router = createBrowserRouter([
   {
@@ -80,18 +84,10 @@ export const router = createBrowserRouter([
         path: "my-tuitions",
         Component: MyTuitions,
       },
-      // {
-      //   path: "student",
-      //   Component: StudentDashboard,
-      // },
-      // {
-      //   path: "tutor",
-      //   Component: TutorDashboard,
-      // },
-      // {
-      //   path: "admin",
-      //   Component: AdminDashboard,
-      // },
+      {
+        path: "profile-settings",
+        Component: ProfileSettings,
+      },
       {
         path: "add-tuition",
         Component: AddTuition,
@@ -127,6 +123,18 @@ export const router = createBrowserRouter([
       {
         path: "payment-cancelled",
         Component: PaymentCancel,
+      },
+      {
+        path: "manage-tuitions",
+        Component: ManageTuitions,
+      },
+      {
+        path: "reports",
+        Component: ReportsAnalytics,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
       },
     ],
   },

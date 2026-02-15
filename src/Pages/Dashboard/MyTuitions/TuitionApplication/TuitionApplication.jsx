@@ -54,9 +54,9 @@ const TuitionApplication = () => {
   const rejectMutation = useMutation({
     mutationFn: async (applicationId) => {
       const response = await fetch(
-        `http://localhost:3000/application/${applicationId}/reject`,
+        `http://localhost:3000/reject/${applicationId}`,
         {
-          method: "DELETE",
+          method: "PATCH",
         },
       );
       if (!response.ok) {
@@ -70,36 +70,30 @@ const TuitionApplication = () => {
   });
 
   const handleReject = (applicationId) => {
-    if (
-      window.confirm(
-        "Are you sure you want to reject this application? This will permanently delete it.",
-      )
-    ) {
-      rejectMutation.mutate(applicationId);
-    }
+    rejectMutation.mutate(applicationId);
   };
 
   const handleStatusUpdate = (applicationId, status) => {
     mutation.mutate({ applicationId, status });
   };
 
-  const getStatusBadge = (status) => {
-    const statusConfig = {
-      pending: { bg: "bg-yellow-100", text: "text-yellow-800" },
-      approved: { bg: "bg-green-100", text: "text-green-800" },
-      rejected: { bg: "bg-red-100", text: "text-red-800" },
-    };
+  // const getStatusBadge = (status) => {
+  //   const statusConfig = {
+  //     pending: { bg: "bg-yellow-100", text: "text-yellow-800" },
+  //     approved: { bg: "bg-green-100", text: "text-green-800" },
+  //     rejected: { bg: "bg-red-100", text: "text-red-800" },
+  //   };
 
-    const config = statusConfig[status] || statusConfig.pending;
+  //   const config = statusConfig[status] || statusConfig.pending;
 
-    return (
-      <span
-        className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${config.bg} ${config.text}`}
-      >
-        {status.charAt(0).toUpperCase() + status.slice(1)}
-      </span>
-    );
-  };
+  //   return (
+  //     <span
+  //       className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${config.bg} ${config.text}`}
+  //     >
+  //       {status.charAt(0).toUpperCase() + status.slice(1)}
+  //     </span>
+  //   );
+  // };
 
   if (isLoading) {
     return (
@@ -159,7 +153,7 @@ const TuitionApplication = () => {
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100"
             >
               <div className="bg-gradient-to-r from-green-50 to-amber-50 p-6">
-                <div className="flex items-start justify-between">
+                <div className="md:flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl">
                       {app.applicantName.charAt(0).toUpperCase()}
@@ -173,29 +167,37 @@ const TuitionApplication = () => {
                       </p>
                     </div>
                   </div>
-                  {app.status === "paid" ? (
-                    <span className="text-green-400 font-bold text-lg text-center">
-                      Accepted
-                    </span>
-                  ) : (
-                    <div className="flex gap-2">
-                      <Link
-                        to={`/dashboard/payment/${app._id}`}
-                        onClick={() => handleStatusUpdate(app._id, "approved")}
-                        disabled={mutation.isPending}
-                        className="btn hover:border-gray-600 text-accent font-bold transition-colors disabled:opacity-50border-2 border-accent disabled:cursor-not-allowed"
-                      >
-                        Accept
-                      </Link>
-                      <button
-                        onClick={() => handleReject(app._id)}
-                        disabled={rejectMutation.isPending}
-                        className="btn border-2 border-red-500 hover:border-gray-600 text-red-600 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {rejectMutation.isPending ? "Rejecting..." : "Reject"}
-                      </button>
-                    </div>
-                  )}
+                  <div className="md:mt-0 mt-5">
+                    {app.status === "paid" ? (
+                      <span className="text-green-400 font-bold text-lg text-center">
+                        Accepted
+                      </span>
+                    ) : app.status === "rejected" ? (
+                      <span className="text-red-400 font-bold text-lg text-center">
+                        Rejected
+                      </span>
+                    ) : (
+                      <div className="flex gap-2">
+                        <Link
+                          to={`/dashboard/payment/${app._id}`}
+                          onClick={() =>
+                            handleStatusUpdate(app._id, "approved")
+                          }
+                          disabled={mutation.isPending}
+                          className="btn hover:border-gray-600 text-accent font-bold transition-colors disabled:opacity-50border-2 border-accent disabled:cursor-not-allowed"
+                        >
+                          Accept
+                        </Link>
+                        <button
+                          onClick={() => handleReject(app._id)}
+                          disabled={rejectMutation.isPending}
+                          className="btn border-2 border-red-500 hover:border-gray-600 text-red-600 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {rejectMutation.isPending ? "Rejecting..." : "Reject"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -236,7 +238,7 @@ const TuitionApplication = () => {
                         Expected Salary
                       </p>
                       <p className="text-gray-800 font-semibold">
-                        ৳{parseInt(app.expectedSalary).toLocaleString()}
+                        ${parseInt(app.expectedSalary).toLocaleString()}
                       </p>
                     </div>
                   </div>

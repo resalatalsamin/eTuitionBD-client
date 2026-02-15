@@ -67,7 +67,9 @@ export const router = createBrowserRouter([
       {
         path: "/tuition-details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/tuition-details/${params.id}`),
+          fetch(
+            `e-tuition-bd-server-three.vercel.app/tuition-details/${params.id}`,
+          ),
         Component: TuitionDetails,
       },
     ],

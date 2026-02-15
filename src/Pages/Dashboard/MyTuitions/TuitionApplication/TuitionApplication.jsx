@@ -7,7 +7,7 @@ const TuitionApplication = () => {
   const queryClient = useQueryClient();
   const fetchApplications = async () => {
     const response = await fetch(
-      `http://localhost:3000/applications/${tuitionID}`,
+      `e-tuition-bd-server-three.vercel.app/applications/${tuitionID}`,
     );
     if (!response.ok) {
       throw new Error("Failed to fetch applications");
@@ -28,7 +28,7 @@ const TuitionApplication = () => {
 
   const updateApplicationStatus = async ({ applicationId, status }) => {
     const response = await fetch(
-      `http://localhost:3000/applications/${applicationId}`,
+      `e-tuition-bd-server-three.vercel.app/applications/${applicationId}`,
       {
         method: "PATCH",
         headers: {
@@ -54,7 +54,7 @@ const TuitionApplication = () => {
   const rejectMutation = useMutation({
     mutationFn: async (applicationId) => {
       const response = await fetch(
-        `http://localhost:3000/reject/${applicationId}`,
+        `e-tuition-bd-server-three.vercel.app/reject/${applicationId}`,
         {
           method: "PATCH",
         },

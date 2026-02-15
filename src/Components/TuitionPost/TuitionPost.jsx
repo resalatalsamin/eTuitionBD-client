@@ -14,7 +14,7 @@ const TuitionPost = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tuition-homepage")
+    fetch("e-tuition-bd-server-three.vercel.app/tuition-homepage")
       .then((res) => res.json())
       .then((data) => {
         setTuitions(data);

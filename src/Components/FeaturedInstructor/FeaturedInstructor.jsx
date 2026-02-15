@@ -13,7 +13,7 @@ const FeaturedInstructor = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("http://localhost:3000/tutor-homepage")
+    fetch("e-tuition-bd-server-three.vercel.app/tutor-homepage")
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);

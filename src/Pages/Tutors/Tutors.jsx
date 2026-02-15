@@ -9,7 +9,7 @@ const Tutors = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("http://localhost:3000/tutors")
+    fetch("e-tuition-bd-server-three.vercel.app/tutors")
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);

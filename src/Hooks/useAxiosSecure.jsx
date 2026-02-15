@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
 const AxiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "e-tuition-bd-server-three.vercel.app",
 });
 
 const useAxiosSecure = () => {

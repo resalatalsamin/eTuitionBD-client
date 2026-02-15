@@ -16,7 +16,7 @@ const Tuitions = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("http://localhost:3000/tuitions")
+    fetch("e-tuition-bd-server-three.vercel.app/tuitions")
       .then((res) => res.json())
       .then((data) => {
         setTuitions(data);

@@ -129,8 +129,8 @@ const MyTuitions = () => {
           },
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+          .then(() => {
+            // console.log(data);
             setIsDeleted(true);
             Swal.fire({
               title: "Deleted!",

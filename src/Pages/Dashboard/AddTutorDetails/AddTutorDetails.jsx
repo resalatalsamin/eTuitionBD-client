@@ -35,7 +35,7 @@ const AddTutorDetails = () => {
   }, [isTutor, authLoading, navigate]);
 
   const handleTutor = (data) => {
-    AxiosSecure.post("/tutor-details", data).then((res) => {
+    AxiosSecure.post("/tutor-details", data).then(() => {
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -44,7 +44,7 @@ const AddTutorDetails = () => {
         timer: 1500,
       });
 
-      console.log("After saving tuitions", res.data);
+      // console.log("After saving tuitions", res.data);
     });
   };
 

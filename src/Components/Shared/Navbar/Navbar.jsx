@@ -6,12 +6,10 @@ import { motion } from "motion/react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  console.log(user);
+
   const handleSignOut = () => {
     logOut()
-      .then((res) => {
-        console.log(res.user);
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });

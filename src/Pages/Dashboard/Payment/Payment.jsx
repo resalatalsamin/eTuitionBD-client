@@ -26,7 +26,7 @@ const Payment = () => {
     console.log(res.data);
     window.location.href = res.data.url;
   };
-  console.log("booking:", booking);
+  // console.log("booking:", booking);
 
   if (isLoading) {
     return (

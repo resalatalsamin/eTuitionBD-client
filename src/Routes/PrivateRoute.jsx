@@ -1,9 +1,10 @@
 import React, { Children } from "react";
 import useAuth from "../Hooks/useAuth";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     <div className="flex flex-col items-center justify-center">

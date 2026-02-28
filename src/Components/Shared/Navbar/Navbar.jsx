@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import { Links } from "react-router";
@@ -6,6 +6,13 @@ import { motion } from "motion/react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", "theme");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const handleSignOut = () => {
     logOut()
@@ -42,8 +49,13 @@ const Navbar = () => {
       )}
     </>
   );
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   return (
-    <div className="shadow-sm bg-base-200 fixed top-0 left-0 z-50 w-full md:h-20">
+    <div className="shadow-sm bg-base-200 fixed top-0 left-0 right-0 z-50 w-full md:h-20">
       <div className="md:pt-5 pt-5 max-w-11/12 mx-auto items-center">
         <div className="">
           <div className="md:flex lg:flex items-center justify-between ">
@@ -68,7 +80,7 @@ const Navbar = () => {
                 </motion.h1>
               </Link>
             </div>
-            <div className="flex items-center gap-10">
+            <div className="flex items-center justify-between lg:justify-normal gap-10">
               <div>
                 <nav>
                   <ul className="hidden md:flex lg:gap-10 gap-5 font-secondary font-bold">
@@ -76,7 +88,7 @@ const Navbar = () => {
                   </ul>
                 </nav>
               </div>
-              <div>
+              <div className="">
                 {user && (
                   <div className="font-primary mr-4">
                     <div className="dropdown dropdown-end">
@@ -126,11 +138,17 @@ const Navbar = () => {
                   </Link>
                 )}
               </div>
+              <input
+                onChange={(e) => handleTheme(e.target.checked)}
+                type="checkbox"
+                defaultChecked={localStorage.getItem("theme") === "dark"}
+                className="toggle"
+              />
             </div>
           </div>
 
           {/* Menu Dropdown */}
-          <div className="dropdown">
+          <div className="dropdown ">
             <div
               tabIndex={0}
               role="button"

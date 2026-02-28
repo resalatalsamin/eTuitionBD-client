@@ -6,6 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
 import { MdSubject } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
+import search from "../../assets/magnifier.webp";
 import { Navigate, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 
@@ -18,10 +19,13 @@ const Tuitions = () => {
   const limit = 10;
   const Navigate = useNavigate();
   const { user } = useAuth();
+  const [sort, setSort] = useState("size");
+  const [order, setOrder] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetch(
-      `http://localhost:3000/tuitions?limit=${limit}&skip=${currentPage * limit}`,
+      `http://localhost:3000/tuitions?limit=${limit}&skip=${currentPage * limit}&sort=${sort}&order=${order}&search=${searchText}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -32,7 +36,7 @@ const Tuitions = () => {
         const page = Math.ceil(data.total / limit);
         setTotalPage(page);
       });
-  }, [currentPage]);
+  }, [currentPage, order, sort, searchText]);
 
   if (loading) {
     return (
@@ -42,12 +46,22 @@ const Tuitions = () => {
     );
   }
 
+  const handleSelect = (e) => {
+    const sortText = e.target.value;
+    setSort(sortText.split("-")[0]);
+    setOrder(sortText.split("-")[1]);
+  };
+
   const handleTuitionDetails = (id) => {
     if (user) {
       Navigate(`/tuition-details/${id}`);
     } else {
       Navigate("/login");
     }
+  };
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
   };
 
   return (
@@ -61,10 +75,68 @@ const Tuitions = () => {
             Find All The Tuitions in One Place
           </h3>
         </div>
-        <div>
-          <h3 className="text-lg underline font-bold text-[#2d3748] font-secondary">
-            ({totalTuitions}) Tuitions Found
-          </h3>
+        <div className="lg:flex justify-between items-center mt-15 space-y-5 lg:space-y-0">
+          <div>
+            <h3 className="text-lg underline font-bold text-[#2d3748] font-secondary">
+              ({totalTuitions}) Tuitions Found
+            </h3>
+          </div>
+          {/* <div>
+            <form>
+              <label className="input max-w-[300px] w-[300px]">
+                <svg
+                  className="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                  <input
+                    onChange={handleSearch}
+                    type="search"
+                    className=""
+                    placeholder="Search Tuition"
+                  />
+                </svg>
+              </label>
+            </form>
+          </div> */}
+
+          <div className="flex items-center flex-col">
+            <div className="flex items-center bg-white px-8   max-w-140 w-full h-12 rounded-lg shadow-lg">
+              <img
+                className="w-4.5 h-4.5 mr-2"
+                src={search}
+                alt="search icon"
+              />
+              <input
+                className=" w-full h-full outline-none text-gray-500"
+                onChange={handleSearch}
+                placeholder="Search by Subject"
+                type="search"
+                name="search"
+              />
+            </div>
+          </div>
+          <div>
+            <select onChange={handleSelect} className="select bg-white">
+              <option selected disabled={true}>
+                Sort by <span> S / S </span>
+              </option>
+              <option value={"salary-desc"}>Salary : High - Low</option>
+              <option value={"salary-asc"}>Salary : Low - High</option>
+              <option value={"subject-desc"}>Subject : High - Low</option>
+              <option value={"subject-asc"}>Subject : Low - High</option>
+            </select>
+          </div>
         </div>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-5 mt-10">
           {/* 1st card */}
@@ -149,7 +221,7 @@ const Tuitions = () => {
                         Salary
                       </h4>
                       <p className="text-md text-[#757575] font-primary ">
-                        {tuition.salary} USD
+                        {tuition.salary} BDT
                       </p>
                     </div>
                   </div>

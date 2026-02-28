@@ -7,15 +7,26 @@ const Tutors = () => {
   const [loading, setLoading] = useState(true);
   const Navigate = useNavigate();
   const { user } = useAuth();
+  const [totalTutors, setTotalTutors] = useState(0);
+
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 10;
 
   useEffect(() => {
-    fetch("http://localhost:3000/tutors")
+    fetch(
+      `http://localhost:3000/tutors?limit=${limit}&skip=${currentPage * limit}`,
+    )
       .then((res) => res.json())
       .then((data) => {
-        setTutors(data);
+        setTutors(data.result);
         setLoading(false);
+        setTotalTutors(data.total);
+
+        const page = Math.ceil(data.total / limit);
+        setTotalPage(page);
       });
-  }, []);
+  }, [currentPage]);
 
   if (loading) {
     return (
@@ -41,6 +52,11 @@ const Tutors = () => {
         </h2>
         <h3 className="font-secondary font-medium text-[#757575] text-2xl">
           Every Instructor is Professional and Highly Qualified
+        </h3>
+      </div>
+      <div>
+        <h3 className="text-lg underline font-bold text-[#2d3748] font-secondary">
+          ({totalTutors}) Tutors Found
         </h3>
       </div>
       <div className="mt-10 md:grid md:grid-cols-4 lg:grid lg:grid-cols-4">
@@ -85,6 +101,34 @@ const Tutors = () => {
         {/* Extra cards starts from here */}
 
         {/* Extra car end above div */}
+      </div>
+      <div className="flex justify-center flex-wrap gap-3 py-10">
+        {currentPage > 0 && (
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="btn"
+          >
+            Prev
+          </button>
+        )}
+
+        {/* 0,1,2,3,4,5,6,7,8,9 */}
+        {[...Array(totalPage).keys()].map((i) => (
+          <button
+            onClick={() => setCurrentPage(i)}
+            className={`btn ${i === currentPage && "btn-primary bg-accent border-accent"}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        {currentPage < totalPage - 1 && (
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="btn"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );

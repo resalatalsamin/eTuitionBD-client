@@ -108,7 +108,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="flex-1">
-            <div className=" w-full h-[445px]">
+            <div className=" w-full h-[445px] overflow-hidden">
               <MapContainer
                 center={position}
                 zoom={10}

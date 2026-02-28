@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 
 const WhyChooseUs = () => {
   return (
-    <div className="lg:my-20 my-15 w/11/12 mx-auto">
+    <div className="lg:my-20 my-15 w-11/12 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -24,9 +24,9 @@ const WhyChooseUs = () => {
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="lg:flex items-center mb-10"
+        className="lg:w-6/12 w-11/12 mx-auto items-center mb-10 flex gap-5"
       >
-        <div className="lg:w-6/12 w-11/12 mx-auto bg-white rounded-lg shadow-lg lg:flex items-center">
+        <div className="bg-white rounded-lg shadow-lg lg:flex items-center ">
           <div className="pt-10 lg:pt-0 pl-10 lg:pr-20 pr-10 pb-10 lg:pb-0">
             <h3 className="font-primary text-accent font-bold text-xl mb-4 lg:mb-0">
               VERIFIED TUTORS
@@ -40,8 +40,8 @@ const WhyChooseUs = () => {
             <img className="w-10" src={user} alt="" />
           </div>
         </div>
-        <div className="w-.5/12 ml-[-300px] mx-auto hidden lg:inline-block">
-          <h4 className="bg-accent rounded-full py-7 px-9.5 font-extrabold text-2xl text-white">
+        <div className="hidden lg:flex items-center justify-center w-20">
+          <h4 className="bg-accent rounded-full h-16 w-16 flex items-center justify-center font-extrabold text-xl text-white">
             1
           </h4>
         </div>
@@ -51,15 +51,15 @@ const WhyChooseUs = () => {
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="lg:flex items-center mb-10"
+        className="lg:w-6/12 w-11/12 mx-auto items-center mb-10 flex gap-5"
       >
-        <div className="w-.5/12 mr-[-300px] mx-auto hidden lg:inline-block">
-          <h4 className="bg-accent rounded-full py-7 px-9.5 font-extrabold text-2xl text-white">
+        <div className="hidden lg:flex items-center justify-center w-20">
+          <h4 className="bg-accent rounded-full h-16 w-16 flex items-center justify-center font-extrabold text-xl text-white">
             2
           </h4>
         </div>
 
-        <div className="lg:w-6/12 w-11/12 mx-auto bg-white rounded-lg shadow-lg lg:flex items-center">
+        <div className="bg-white rounded-lg shadow-lg lg:flex items-center ">
           <div className="p-10 lg:rounded-l-lg rounded-l-0  bg-accent flex lg:flex-none flex-col items-center">
             <img className="w-10" src={verified} alt="" />
           </div>
@@ -79,9 +79,9 @@ const WhyChooseUs = () => {
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="lg:flex items-center mb-10"
+        className="lg:w-6/12 w-11/12 mx-auto items-center mb-10 flex gap-5"
       >
-        <div className="lg:w-6/12 w-11/12 mx-auto bg-white rounded-lg shadow-lg lg:flex items-center">
+        <div className="bg-white rounded-lg shadow-lg lg:flex items-center ">
           <div className="pt-10 lg:pt-0 pl-10 lg:pr-20 pr-10 pb-10 lg:pb-0">
             <h3 className="font-primary text-accent font-bold text-xl mb-4 lg:mb-0">
               EASY & FAST MATCHING
@@ -95,8 +95,8 @@ const WhyChooseUs = () => {
             <img className="w-10" src={matching} alt="" />
           </div>
         </div>
-        <div className="w-.5/12 ml-[-300px] mx-auto hidden lg:inline-block">
-          <h4 className="bg-accent rounded-full py-7 px-9.5 font-extrabold text-2xl text-white">
+        <div className="hidden lg:flex items-center justify-center w-20">
+          <h4 className="bg-accent rounded-full h-16 w-16 flex items-center justify-center font-extrabold text-xl text-white">
             3
           </h4>
         </div>
@@ -106,15 +106,15 @@ const WhyChooseUs = () => {
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="lg:flex items-center mb-10"
+        className="lg:w-6/12 w-11/12 mx-auto items-center mb-10 flex gap-5"
       >
-        <div className="w-.5/12 mr-[-300px] mx-auto hidden lg:inline-block">
-          <h4 className="bg-accent rounded-full py-7 px-9.5 font-extrabold text-2xl text-white">
+        <div className="hidden lg:flex items-center justify-center w-20">
+          <h4 className="bg-accent rounded-full h-16 w-16 flex items-center justify-center font-extrabold text-xl text-white">
             4
           </h4>
         </div>
 
-        <div className="lg:w-6/12 w-11/12 mx-auto bg-white rounded-lg shadow-lg lg:flex items-center">
+        <div className="bg-white rounded-lg shadow-lg lg:flex items-center">
           <div className="p-10 lg:rounded-l-lg rounded-l-0  bg-accent flex lg:flex-none flex-col items-center">
             <img className="w-10" src={money} alt="" />
           </div>

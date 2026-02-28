@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { router } from "./Routes/Router";
@@ -14,9 +14,17 @@ createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <MotionConfig viewport={{ once: true }}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center min-h-[60vh]">
+                <span className="loading loading-spinner loading-lg text-accent"></span>
+              </div>
+            }
+          >
+            <RouterProvider router={router} />
+          </Suspense>
         </QueryClientProvider>
       </MotionConfig>
     </AuthProvider>
-  </StrictMode>
+  </StrictMode>,
 );

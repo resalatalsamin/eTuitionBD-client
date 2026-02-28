@@ -53,7 +53,7 @@ const MyTuitions = () => {
     };
 
     // sending data to server
-    fetch(`e-tuition-bd-server-three.vercel.app/update-tuition/${id}`, {
+    fetch(`http://localhost:3000/update-tuition/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -122,7 +122,7 @@ const MyTuitions = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`e-tuition-bd-server-three.vercel.app/tuition/${id}`, {
+        fetch(`http://localhost:3000/tuition/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",
@@ -152,7 +152,7 @@ const MyTuitions = () => {
 
   return (
     <div>
-      <div className="w-11/12 mx-auto mb-30 mt-20">
+      <div className="w-11/12 mx-auto mb-20 mt-20">
         <div>
           <h2 className="text-[#2d3748] text-center font-primary font-bold text-3xl md:text-4xl pb-10">
             My <span className="text-accent">Tuition Listings</span>

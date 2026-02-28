@@ -1,5 +1,5 @@
 import React from "react";
-import photo from "../../../assets/Cover1.png";
+import photo from "../../../assets/Cover1.webp";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
@@ -47,7 +47,7 @@ const Login = () => {
     );
   }
   return (
-    <div className=" md:flex items-center py-20">
+    <div className=" md:flex items-center lg:py-20 pt-40 pb-20">
       <div className="flex-1 w-11/12 mx-auto md:w-0">
         <div className="md:px-50 py-8">
           <h2 className="font-bold text-4xl font-primary">

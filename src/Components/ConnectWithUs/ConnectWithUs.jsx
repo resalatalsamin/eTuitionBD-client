@@ -1,24 +1,24 @@
 import React from "react";
-import imgOne from "../../assets/clarity--avatar-outline-badged.svg";
-import imgTwo from "../../assets/ph--note.svg";
-import imgThree from "../../assets/pepicons-pencil--cv.svg";
-import imgFour from "../../assets/flowbite--badge-check-outline.svg";
+import imgOne from "../../assets/bussiness-man.webp";
+import imgTwo from "../../assets/google-forms.webp";
+import imgThree from "../../assets/cv.webp";
+import imgFour from "../../assets/check.webp";
 
 const ConnectWithUs = () => {
   return (
-    <div className="mb-30  bg-base-200 shadow">
+    <div className="lg:mb-20 mb-15 bg-white">
       <div className="py-20 w-11/12 mx-auto">
-        <div className="text-center pb-10">
+        <div className="text-center ">
           <h1 className="font-bold md:text-4xl text-3xl text-[#2d3748] font-primary ">
             The Ways <span className="text-accent">Students</span> Can Connect
             with Us.
           </h1>
         </div>
-        <div className="md:flex gap-5">
-          <div className="pt-8 md:w-3/12 text-center flex flex-col items-center space-y-3">
+        <div className="md:flex gap-8">
+          <div className="pt-10 md:w-3/12 text-center flex flex-col items-center space-y-3">
             <div>
               <img
-                className="bg-accent p-5 rounded-full w-20"
+                className="bg-[#eaeced] p-1 rounded-full w-20"
                 src={imgOne}
                 alt=""
               />
@@ -32,10 +32,10 @@ const ConnectWithUs = () => {
               </p>
             </div>
           </div>
-          <div className="pt-8 md:w-3/12 text-center flex flex-col items-center space-y-3">
+          <div className="pt-10 md:w-3/12 text-center flex flex-col items-center space-y-3">
             <div>
               <img
-                className="bg-accent p-5 rounded-full w-20"
+                className="bg-[#eaeced] p-1 rounded-full w-20"
                 src={imgTwo}
                 alt=""
               />
@@ -49,10 +49,10 @@ const ConnectWithUs = () => {
               </p>
             </div>
           </div>
-          <div className="pt-8 md:w-3/12 text-center flex flex-col items-center space-y-3">
+          <div className="pt-10 md:w-3/12 text-center flex flex-col items-center space-y-3">
             <div>
               <img
-                className="bg-accent p-5 rounded-full w-20"
+                className="bg-[#eaeced] p-1 rounded-full w-20"
                 src={imgThree}
                 alt=""
               />
@@ -66,10 +66,10 @@ const ConnectWithUs = () => {
               </p>
             </div>
           </div>
-          <div className="pt-8 md:w-3/12 text-center flex flex-col items-center space-y-3">
+          <div className="pt-10 md:w-3/12 text-center flex flex-col items-center space-y-3">
             <div>
               <img
-                className="bg-accent p-5 rounded-full w-20"
+                className="bg-[#eaeced] p-1 rounded-full w-20"
                 src={imgFour}
                 alt=""
               />

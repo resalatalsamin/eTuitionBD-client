@@ -4,15 +4,23 @@ import ConnectWithUs from "../../Components/ConnectWithUs/ConnectWithUs";
 import FeaturedInstructor from "../../Components/FeaturedInstructor/FeaturedInstructor";
 import TuitionPost from "../../Components/TuitionPost/TuitionPost";
 import WhyChooseUs from "../../Components/WhyChooseUs/WhyChooseUs";
+import DownloadApp from "../../Components/DownloadApp/DownloadApp";
+import BeATeacher from "../../Components/BeATeacher/BeATeacher";
+import NewsLetter from "../../Components/NewsLetter/NewsLetter";
+import Testimonials from "../../Components/Testimonials/Testimonials";
 
 const Homepage = () => {
   return (
-    <div className="space-y-15">
+    <div>
       <Banner></Banner>
-      <WhyChooseUs></WhyChooseUs>
+      <BeATeacher></BeATeacher>
       <TuitionPost></TuitionPost>
-      <FeaturedInstructor></FeaturedInstructor>
       <ConnectWithUs></ConnectWithUs>
+      <FeaturedInstructor></FeaturedInstructor>
+      <WhyChooseUs></WhyChooseUs>
+      <DownloadApp></DownloadApp>
+      <Testimonials></Testimonials>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

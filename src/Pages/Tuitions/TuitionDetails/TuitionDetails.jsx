@@ -94,9 +94,9 @@ const TuitionDetails = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-5 ">
+    <div className="w-11/12 mx-auto py-30 ">
       <div className="md:flex gap-8">
-        <div className="flex-3 bg-white px-7 md:px-15 py-10 rounded-md mb-5 shadow-sm">
+        <div className="flex-3 bg-white px-7 md:px-15 py-10 rounded-md mb-5 shadow-lg">
           <div className="mb-8">
             <h2 className="text-accent font-semibold text-3xl">
               Student Informations

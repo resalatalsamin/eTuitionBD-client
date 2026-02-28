@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { motion } from "motion/react";
-import education1 from "../../assets/education1.png";
+import { motion } from "framer-motion";
 
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
@@ -13,7 +12,7 @@ const FeaturedInstructor = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("e-tuition-bd-server-three.vercel.app/tutor-homepage")
+    fetch("http://localhost:3000/tutor-homepage")
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);
@@ -42,16 +41,16 @@ const FeaturedInstructor = () => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="w-11/12 mx-auto mb-30 "
+      className="w-11/12 mx-auto lg:mb-20 mb-15"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mt-10 text-center space-y-3 "
+        className="text-center space-y-3 "
       >
-        <h2 className="font-bold md:text-5xl text-4xl font-primary text-[#2d3748]">
-          Our Featured <span className="text-accent">Instructors</span>
+        <h2 className="font-bold md:text-4xl text-3xl font-primary text-[#2d3748]">
+          Featured <span className="text-accent">Instructors</span>
         </h2>
         <h3 className="font-secondary font-medium text-[#757575] text-3xl">
           Every Instructor is Professional and Highly Qualified
@@ -61,26 +60,19 @@ const FeaturedInstructor = () => {
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mt-10 md:flex md:gap-8 "
+        className="mt-10 md:grid md:grid-cols-4 lg:grid lg:grid-cols-4"
       >
         {tutors.map((tutor) => (
           <div
             key={tutor._id}
             onClick={handleTutorConfirm}
-            className="md:w-[320px] w-full border border-gray-300 bg-white mb-5 md:mb-0 p-5 rounded-lg overflow-hidden hover:-translate-y-1  transition-all duration-500 cursor-pointer"
+            className="md:w-[320px] w-full mb-5 md:mb-0 p-5 overflow-hidden hover:-translate-y-1  transition-all duration-500 cursor-pointer h-fit bg-white rounded-lg shadow-lg"
           >
-            <div className="overflow-hidden relative">
-              <img
-                className="object-center object-cover h-[200px] md:w-[320px] w-full rounded-lg transition-transform duration-500 group-hover:scale-105"
-                src={education1}
-                alt=""
-              />
-            </div>
-            <div className="text-center space-y-1 mt-2">
-              <div className="flex items-center gap-4">
-                <div>
+            <div className="text-center space-y-5 mt-2 ">
+              <div className=" ">
+                <div className=" flex flex-col items-center">
                   <img
-                    className="rounded-[300%] h-12 w-12"
+                    className="rounded-[100%] w-28 h-28 mb-3 bg-accent p-1 object-cover"
                     src={tutor.photo}
                     alt=""
                   />
@@ -89,15 +81,12 @@ const FeaturedInstructor = () => {
                   <h3 className="font-semibold text-2xl font-primary text-[#2d3748]">
                     {tutor.name}
                   </h3>
-                  <p className="font-medium font-secondary text-lg text-[#757575]">
-                    {tutor.location}
-                  </p>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center  font-medium text-[#757575]">
-                  <p>Mobile: </p>
-                  <p>{tutor.phone}</p>
+                  <p>Experience: </p>
+                  <p>{tutor.experience}</p>
                 </div>
                 <div className="flex justify-between items-center font-medium text-[#757575]">
                   <p>Qualification:</p>
@@ -105,12 +94,13 @@ const FeaturedInstructor = () => {
                 </div>
                 <div className="flex justify-between items-center font-medium text-[#757575]">
                   <p>Salary:</p>
-                  <p>{tutor.salary} USD</p>
+                  <p>{tutor.salary} BDT</p>
                 </div>
               </div>
             </div>
           </div>
         ))}
+
         {/* Extra cards starts from here */}
 
         {/* Extra car end above div */}

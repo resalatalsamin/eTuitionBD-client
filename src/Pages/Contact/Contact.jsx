@@ -1,24 +1,24 @@
 import React from "react";
-import location from "../../assets/Location-big.png";
-import mail from "../../assets/email.png";
-import phone from "../../assets/icons8-phone-96.png";
-import facebook from "../../assets/icons8-facebook-50.png";
-import youtube from "../../assets/icons8-youtube-50.png";
-import x from "../../assets/icons8-x-50.png";
-import instagram from "../../assets/icons8-instagram-50.png";
+import location from "../../assets/Location-big.webp";
+import mail from "../../assets/email.webp";
+import phone from "../../assets/icons8-phone-96.webp";
+import facebook from "../../assets/facebook.webp";
+import youtube from "../../assets/youtube.webp";
+import x from "../../assets/twitter.webp";
+import instagram from "../../assets/instagram.webp";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const Contact = () => {
   const position = [23.8103, 90.4125];
   return (
-    <div className="w-11/12 mx-auto my-30">
+    <div className="w-11/12 mx-auto pt-40 mb-30">
       <div>
         <div className="mb-10">
-          <h2 className="font-bold md:text-5xl text-4xl font-primary text-center text-[#2d3748]">
+          <h2 className="font-bold text-3xl md:text-4xl font-primary text-center text-[#2d3748]">
             Contact <span className="text-accent">Us</span>
           </h2>
-          <h3 className="font-secondary font-medium text-center text-[#757575] text-3xl">
+          <h3 className="font-secondary font-medium text-center text-[#757575] text-2xl">
             You Can Use Either Way To Contact Us.
           </h3>
         </div>

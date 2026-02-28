@@ -18,7 +18,6 @@ const AddTutorDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If auth is still checking, do nothing yet
     if (authLoading) return;
 
     // If auth finished and user is NOT a student
@@ -50,7 +49,7 @@ const AddTutorDetails = () => {
 
   return (
     <div>
-      <div className="py-30 max-w-11/12 md:max-w-none mx-auto">
+      <div className="py-20 max-w-11/12 md:max-w-none mx-auto">
         <div className="text-center">
           <h2 className="font-bold text-4xl font-primary">
             <span className="text-accent ">Add Tutor</span>{" "}

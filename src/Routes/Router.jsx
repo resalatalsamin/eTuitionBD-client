@@ -29,6 +29,9 @@ import ManageTuitions from "../Pages/Dashboard/ManageTuitions/ManageTuitions";
 import ReportsAnalytics from "../Pages/Dashboard/ReportsAnalytics/ReportsAnalytics";
 import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 import ProfileSettings from "../Pages/Dashboard/StudentDashboard/ProfileSettings/ProfileSettings";
+import TermsAndConditions from "../Components/Shared/TermsAndConditions/TermsAndConditions";
+import PrivacyPolicy from "../Components/Shared/PrivacyPolicy/PrivacyPolicy";
+import CookiePolicy from "../Components/Shared/CookiePolicy/CookiePolicy";
 
 export const router = createBrowserRouter([
   {
@@ -67,10 +70,20 @@ export const router = createBrowserRouter([
       {
         path: "/tuition-details/:id",
         loader: ({ params }) =>
-          fetch(
-            `e-tuition-bd-server-three.vercel.app/tuition-details/${params.id}`,
-          ),
+          fetch(`http://localhost:3000/tuition-details/${params.id}`),
         Component: TuitionDetails,
+      },
+      {
+        path: "/terms-and-conditions",
+        Component: TermsAndConditions,
+      },
+      {
+        path: "/privacy-policy",
+        Component: PrivacyPolicy,
+      },
+      {
+        path: "/cookie-policy",
+        Component: CookiePolicy,
       },
     ],
   },

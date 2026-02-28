@@ -14,7 +14,7 @@ const TuitionPost = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("e-tuition-bd-server-three.vercel.app/tuition-homepage")
+    fetch("http://localhost:3000/tuition-homepage")
       .then((res) => res.json())
       .then((data) => {
         setTuitions(data);
@@ -35,7 +35,7 @@ const TuitionPost = () => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="w-11/12 mx-auto mb-30"
+      className="w-11/12 mx-auto lg:my-20 my-15 "
     >
       <motion.div
         initial={{ opacity: 0, y: 100 }}
@@ -47,7 +47,7 @@ const TuitionPost = () => {
         {tuitions.map((tuition) => (
           <div
             key={tuition._id}
-            className="rounded-lg p-7 bg-white transition-transform duration-500 group-hover:scale-105 shadow"
+            className="rounded-lg p-7 bg-white transition-transform duration-500 group-hover:scale-105 shadow-lg"
           >
             <div className="flex items-center justify-between mb-8">
               <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
@@ -125,7 +125,7 @@ const TuitionPost = () => {
                       Salary
                     </h4>
                     <p className="text-md text-[#757575] font-primary ">
-                      {tuition.salary} USD
+                      {tuition.salary} BDT
                     </p>
                   </div>
                 </div>

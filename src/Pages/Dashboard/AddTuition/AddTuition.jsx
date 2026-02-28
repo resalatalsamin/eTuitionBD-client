@@ -51,7 +51,7 @@ const AddTuition = () => {
   };
 
   return (
-    <div className="py-30 max-w-11/12 md:max-w-none mx-auto">
+    <div className="py-20 max-w-11/12 md:max-w-none mx-auto">
       <div className="text-center">
         <h2 className="font-bold text-4xl font-primary">
           <span className="text-accent ">Add</span>{" "}

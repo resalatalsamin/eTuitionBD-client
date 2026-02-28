@@ -11,18 +11,28 @@ import useAuth from "../../Hooks/useAuth";
 
 const Tuitions = () => {
   const [tuitions, setTuitions] = useState([]);
+  const [totalTuitions, setTotalTuitions] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 10;
   const Navigate = useNavigate();
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("e-tuition-bd-server-three.vercel.app/tuitions")
+    fetch(
+      `http://localhost:3000/tuitions?limit=${limit}&skip=${currentPage * limit}`,
+    )
       .then((res) => res.json())
       .then((data) => {
-        setTuitions(data);
+        setTuitions(data.result);
         setLoading(false);
+        setTotalTuitions(data.total);
+
+        const page = Math.ceil(data.total / limit);
+        setTotalPage(page);
       });
-  }, []);
+  }, [currentPage]);
 
   if (loading) {
     return (
@@ -42,19 +52,27 @@ const Tuitions = () => {
 
   return (
     <div>
-      <div className="w-11/12 mx-auto mb-30 ">
+      <div className="w-11/12 mx-auto pt-30 mb-20 ">
         <div className="mt-10 text-center space-y-3">
-          <h2 className="font-bold md:text-5xl text-4xl font-primary text-[#2d3748]">
+          <h2 className="font-bold md:text-4xl text-3xl font-primary text-[#2d3748]">
             Our <span className="text-accent">Listed Tuitions</span>
           </h2>
-          <h3 className="font-secondary font-medium text-[#757575] text-3xl">
+          <h3 className="font-secondary font-medium text-[#757575] text-2xl">
             Find All The Tuitions in One Place
+          </h3>
+        </div>
+        <div>
+          <h3 className="text-lg underline font-bold text-[#2d3748] font-secondary">
+            ({totalTuitions}) Tuitions Found
           </h3>
         </div>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-5 mt-10">
           {/* 1st card */}
           {tuitions.map((tuition) => (
-            <div key={tuition._id} className="rounded-lg p-7 bg-white">
+            <div
+              key={tuition._id}
+              className="rounded-lg p-7 bg-white shadow-lg"
+            >
               <div className="flex items-center justify-between mb-8">
                 <h4 className="text-2xl font-medium font-primary text-[#2d3748]">
                   Class {tuition.class}
@@ -179,6 +197,34 @@ const Tuitions = () => {
             </div>
           ))}
           {/* 1st card end */}
+        </div>
+        <div className="flex justify-center flex-wrap gap-3 py-10">
+          {currentPage > 0 && (
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              className="btn"
+            >
+              Prev
+            </button>
+          )}
+
+          {/* 0,1,2,3,4,5,6,7,8,9 */}
+          {[...Array(totalPage).keys()].map((i) => (
+            <button
+              onClick={() => setCurrentPage(i)}
+              className={`btn ${i === currentPage && "btn-primary bg-accent border-accent"}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          {currentPage < totalPage - 1 && (
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              className="btn"
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     </div>

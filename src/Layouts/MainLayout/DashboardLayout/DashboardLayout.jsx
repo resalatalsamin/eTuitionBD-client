@@ -64,7 +64,7 @@ const DashboardLayout = () => {
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
         <aside className="w-64 bg-base-200 min-h-full">
-          <ul className="menu p-4 space-y-1">
+          <ul className="menu p-4 space-y-1 mt-15 lg:mt-0">
             {/* Homepage */}
             <li>
               <Link to="/">

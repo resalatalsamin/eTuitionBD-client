@@ -183,7 +183,7 @@ const MyTuitions = () => {
                   </td>
                   <td className="p-3 max-md:hidden">{listing.time} PM</td>
                   <td className="p-3">{listing.days}/week</td>
-                  <td className="p-3 max-md:hidden">{listing.salary} BDT</td>
+                  <td className="p-3 max-md:hidden">{listing.salary} USD</td>
                   <td className="p-3">
                     <div className="grid md:grid-cols-2 items-center gap-5 ">
                       {/* View Applications Button */}

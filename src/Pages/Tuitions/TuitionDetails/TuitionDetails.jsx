@@ -293,7 +293,7 @@ const TuitionDetails = () => {
                     value={formData.expectedSalary}
                     onChange={handleInputChange}
                     required
-                    placeholder="e.g., 5000 BDT/month"
+                    placeholder="e.g., 500 USD/month"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-accent focus:border-transparent"
                   />
                 </div>

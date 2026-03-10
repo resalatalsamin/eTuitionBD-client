@@ -108,12 +108,12 @@ const Contact = () => {
             </div>
           </div>
           <div className="flex-1">
-            <div className=" w-full h-[445px] overflow-hidden">
+            <div className=" w-full h-[445px]">
               <MapContainer
                 center={position}
                 zoom={10}
                 scrollWheelZoom={false}
-                className="h-[445px]"
+                className="h-[445px] overflow-hidden"
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

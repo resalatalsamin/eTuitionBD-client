@@ -1,4 +1,5 @@
 import React from "react";
+import { Suspense } from "react";
 // import Banner from "../../Components/Banner/Banner";
 // import ConnectWithUs from "../../Components/ConnectWithUs/ConnectWithUs";
 // import FeaturedInstructor from "../../Components/FeaturedInstructor/FeaturedInstructor";

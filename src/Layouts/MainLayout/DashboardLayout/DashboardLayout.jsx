@@ -145,6 +145,26 @@ const DashboardLayout = () => {
                     Add Tutor Details
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Applications"
+                    to="/dashboard/my-applications"
+                  >
+                    <IoIosAddCircleOutline className="text-lg is-drawer-close:hidden" />
+                    My Applications
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Earnings"
+                    to="/dashboard/my-earnings"
+                  >
+                    <IoIosAddCircleOutline className="text-lg is-drawer-close:hidden" />
+                    My Earnings
+                  </NavLink>
+                </li>
               </>
             )}
             {/* Admin Links */}

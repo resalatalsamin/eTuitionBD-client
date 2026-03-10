@@ -7,11 +7,14 @@ import { IoIosTimer } from "react-icons/io";
 import { MdSubject } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
 const TuitionPost = () => {
   const [tuitions, setTuitions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const Navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/tuition-homepage")
@@ -21,6 +24,14 @@ const TuitionPost = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleTuitionDetails = (id) => {
+    if (user) {
+      Navigate(`/tuition-details/${id}`);
+    } else {
+      Navigate("/login");
+    }
+  };
 
   if (loading) {
     return (
@@ -163,12 +174,12 @@ const TuitionPost = () => {
               </div>
             </div>
             <div className="flex justify-end">
-              <Link
-                to="/tuition-details"
+              <button
+                onClick={() => handleTuitionDetails(tuition._id)}
                 className="btn bg-accent text-white font-primary font-bold mt-4 hover:bg-[#222222] hover:border-[#222222]"
               >
                 See Details
-              </Link>
+              </button>
             </div>
           </div>
         ))}

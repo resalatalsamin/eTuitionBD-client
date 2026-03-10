@@ -9,8 +9,8 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
-    const html = document.querySelector("html");
-    html.setAttribute("data-theme", "theme");
+    const html = document.documentElement;
+    html.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -55,7 +55,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="shadow-sm bg-base-200 fixed top-0 left-0 right-0 z-50 w-full md:h-20">
+    <div className="shadow-sm bg-white fixed top-0 left-0 right-0 z-1000 w-full md:h-20">
       <div className="md:pt-5 pt-5 max-w-11/12 mx-auto items-center">
         <div className="">
           <div className="md:flex lg:flex items-center justify-between ">
@@ -94,7 +94,7 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
                       <div tabIndex={0} role="button" className=" m-1">
                         <img
-                          className="rounded-full w-7"
+                          className="rounded-full w-7 h-7 object-cover"
                           src={user?.photoURL}
                           alt="User's photo"
                         />

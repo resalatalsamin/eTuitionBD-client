@@ -2,6 +2,9 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+// import MyEarnings from "../Pages/Dashboard/MyEarnings/MyEarnings";
+// import MyApplications from "../Pages/MyApplications/MyApplications";
+
 // import MainLayout from "../Layouts/MainLayout/MainLayout";
 // import Homepage from "../Pages/HomePage/Homepage";
 // import Tuitions from "../Pages/Tuitions/Tuitions";
@@ -54,15 +57,19 @@ const DashboardLayout = lazy(
 const MyTuitions = lazy(
   () => import("../Pages/Dashboard/MyTuitions/MyTuitions"),
 );
+const MyApplications = lazy(
+  () => import("../Pages/MyApplications/MyApplications"),
+);
 const AddTuition = lazy(
   () => import("../Pages/Dashboard/AddTuition/AddTuition"),
+);
+const MyEarnings = lazy(
+  () => import("../Pages/Dashboard/MyEarnings/MyEarnings"),
 );
 const AddTutorDetails = lazy(
   () => import("../Pages/Dashboard/AddTutorDetails/AddTutorDetails"),
 );
-const TutorDashboard = lazy(
-  () => import("../Pages/Dashboard/TutorDashboard/TutorDashboard"),
-);
+
 const AdminDashboard = lazy(
   () => import("../Pages/Dashboard/AdminDashboard/AdminDashboard"),
 );
@@ -182,6 +189,14 @@ export const router = createBrowserRouter([
       {
         path: "add-tuition",
         Component: AddTuition,
+      },
+      {
+        path: "my-applications",
+        Component: MyApplications,
+      },
+      {
+        path: "my-earnings",
+        Component: MyEarnings,
       },
       {
         path: "add-tutor-details",

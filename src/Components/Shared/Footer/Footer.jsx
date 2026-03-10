@@ -12,7 +12,7 @@ import { Links } from "react-router";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer bg-base-200 text-[#2d3748] md:px-10 px-2 py-8 md:flex justify-between ">
+      <footer className="footer bg-white text-[#2d3748] md:px-10 px-2 py-8 md:flex justify-between ">
         <aside className="">
           <Link to="/">
             {/* <img className="w-[250px]" src={logo} alt="" /> */}
@@ -134,7 +134,7 @@ const Footer = () => {
         </div>
       </footer>
       {/* Copyright */}
-      <footer className="footer sm:footer-horizontal footer-center bg-base-200 text-[#757575] p-4 border-gray-300 border-t">
+      <footer className="footer sm:footer-horizontal footer-center bg-white text-[#757575] p-4 border-gray-300 border-t">
         <aside>
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by
